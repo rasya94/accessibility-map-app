@@ -23,7 +23,7 @@ export function SearchBar() {
       <TextInput
         placeholder="Cari lokasi..."
         placeholderTextColor={COLORS.gray600}
-        style={{ flex: 1, marginLeft: 10, fontSize: 15, color: COLORS.text }}
+        style={{ flex: 1, marginLeft: 10, fontSize: 15, color: COLORS.text, fontFamily: "MonaSans" }}
       />
       <Mic size={18} color={COLORS.gray600} />
     </View>

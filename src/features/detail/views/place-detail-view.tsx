@@ -1,4 +1,5 @@
-import { Alert, ImageBackground, Pressable, ScrollView, Text, View } from "react-native";
+import { Alert, ImageBackground, Pressable, ScrollView, View } from "react-native";
+import { Text } from "@/components/ui/text";
 import { router } from "expo-router";
 import {
   ArrowLeft,

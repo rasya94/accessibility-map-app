@@ -5,7 +5,8 @@ import { SectionTitle } from "@/components/ui/section-title";
 import { COLORS } from "@/constants/colors";
 import { places } from "@/constants/mockData";
 import { Coffee, Store, UtensilsCrossed } from "lucide-react-native";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, View } from "react-native";
+import { Text } from "@/components/ui/text";
 import { ResumableZoom } from "react-native-zoom-toolkit";
 import { berandaStyles } from "../styles";
 

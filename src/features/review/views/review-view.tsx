@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ImageBackground, Pressable, Text, TextInput, View } from "react-native";
+import { ImageBackground, Pressable, TextInput, View } from "react-native";
+import { Text } from "@/components/ui/text";
 import { router } from "expo-router";
 import { ArrowLeft, MapPin, Star } from "lucide-react-native";
 import { AppButton } from "@/components/ui/app-button";
@@ -73,7 +74,7 @@ export function ReviewView({ place }: Props) {
             placeholder="Berikan Ulasan"
             placeholderTextColor={COLORS.gray300}
             multiline
-            style={{ flex: 1, fontSize: 15, color: COLORS.text, textAlignVertical: "top" }}
+            style={{ flex: 1, fontSize: 15, color: COLORS.text, textAlignVertical: "top", fontFamily: "MonaSans" }}
           />
         </View>
 

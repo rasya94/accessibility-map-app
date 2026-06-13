@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { ImageBackground, Pressable, Text, View } from "react-native";
+import { ImageBackground, Pressable, View } from "react-native";
+import { Text } from "@/components/ui/text";
 import { router } from "expo-router";
 import {
   ArrowLeft,

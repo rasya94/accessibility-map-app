@@ -1,4 +1,5 @@
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
+import { Text } from "@/components/ui/text";
 import { User } from "lucide-react-native";
 import { COLORS } from "@/constants/colors";
 import { profileStyles } from "../styles";

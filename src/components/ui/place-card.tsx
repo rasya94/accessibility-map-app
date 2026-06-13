@@ -1,8 +1,8 @@
-import { Image, Pressable, Text, View } from "react-native";
-import { router } from "expo-router";
-import { Ionicons } from "@expo/vector-icons";
-import { Place } from "@/constants/mockData";
+import { Text } from "@/components/ui/text";
 import { COLORS } from "@/constants/colors";
+import { Place } from "@/constants/mockData";
+import { router } from "expo-router";
+import { Image, Pressable, View } from "react-native";
 
 type Props = {
   place: Place;
@@ -29,10 +29,12 @@ export function PlaceCard({ place }: Props) {
         style={{ width: 78, height: 78, borderRadius: 14 }}
       />
       <View style={{ flex: 1, gap: 4 }}>
-        <Text style={{ fontSize: 15, fontWeight: "800", color: COLORS.text }}>
+        <Text style={{ fontSize: 15, fontWeight: "600", color: COLORS.text }}>
           {place.name}
         </Text>
-        <Text style={{ fontSize: 12, color: COLORS.muted }}>{place.address}</Text>
+        <Text style={{ fontSize: 12, color: COLORS.muted }}>
+          {place.address}
+        </Text>
       </View>
       <View
         style={{

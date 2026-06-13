@@ -1,4 +1,5 @@
-import { Pressable, Text, ViewStyle } from "react-native";
+import { Pressable, ViewStyle } from "react-native";
+import { Text } from "@/components/ui/text";
 import { COLORS } from "@/constants/colors";
 
 type Props = {
