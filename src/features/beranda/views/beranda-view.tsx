@@ -5,7 +5,8 @@ import { SectionTitle } from "@/components/ui/section-title";
 import { COLORS } from "@/constants/colors";
 import { places } from "@/constants/mockData";
 import { Coffee, Store, UtensilsCrossed } from "lucide-react-native";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
+import { ResumableZoom } from "react-native-zoom-toolkit";
 import { berandaStyles } from "../styles";
 
 export function BerandaView() {
@@ -25,74 +26,44 @@ export function BerandaView() {
             marginTop: 18,
             borderRadius: 26,
             overflow: "hidden",
+            backgroundColor: "#F7F8FA",
           }}
         >
-          <View style={{ flex: 1, backgroundColor: "#F7F8FA" }}>
-            <View
-              style={[
-                berandaStyles.roadLine,
-                { left: 20, right: 20, top: 40, height: 4, borderRadius: 8 },
-              ]}
-            />
-            <View
-              style={[
-                berandaStyles.roadLine,
-                { left: 80, top: 0, bottom: 0, width: 4 },
-              ]}
-            />
-            <View
-              style={[
-                berandaStyles.roadLine,
-                { left: 140, top: 50, bottom: 50, width: 4, opacity: 0.7 },
-              ]}
-            />
-            <View
-              style={[
-                berandaStyles.roadLine,
-                { left: 200, top: 30, right: 30, height: 4 },
-              ]}
-            />
-            <View
-              style={[
-                berandaStyles.roadLine,
-                { left: 255, top: 10, bottom: 20, width: 4 },
-              ]}
-            />
-            <View
-              style={[
-                berandaStyles.roadLine,
-                { left: 20, top: 140, right: 120, height: 4 },
-              ]}
-            />
-            <View
-              style={[
-                berandaStyles.roadLine,
-                { left: 40, top: 230, right: 40, height: 4 },
-              ]}
-            />
-            <View
-              style={[
-                berandaStyles.roadLine,
-                { left: 290, top: 170, bottom: 80, width: 4 },
-              ]}
-            />
+          <ResumableZoom maxScale={4} minScale={1}>
             <View
               style={{
-                ...StyleSheet.absoluteFillObject,
-                backgroundColor: "rgba(82,180,220,0.08)",
+                width: 900,
+                height: 1400,
               }}
-            />
+            >
+              <Image
+                source={require("../../../../assets/MockMap.png")}
+                style={{
+                  width: 900,
+                  height: 1400,
+                }}
+                resizeMode="contain"
+              />
 
-            <MapPin icon={Store} color={COLORS.green} top={104} left={14} />
-            <MapPin icon={Coffee} color={COLORS.orange} top={120} left={58} />
-            <MapPin
-              icon={UtensilsCrossed}
-              color={COLORS.green}
-              top={236}
-              left={180}
-            />
-            <MapPin icon={Store} color={COLORS.orange} top={76} left={226} />
-          </View>
+              <MapPin icon={Store} color={COLORS.green} top={300} left={120} />
+
+              <MapPin
+                icon={Coffee}
+                color={COLORS.orange}
+                top={420}
+                left={260}
+              />
+
+              <MapPin
+                icon={UtensilsCrossed}
+                color={COLORS.green}
+                top={760}
+                left={480}
+              />
+
+              <MapPin icon={Store} color={COLORS.orange} top={620} left={700} />
+            </View>
+          </ResumableZoom>
         </View>
       </View>
 
