@@ -4,6 +4,7 @@ import { SearchBar } from "@/components/ui/search-bar";
 import { Text } from "@/components/ui/text";
 import { COLORS } from "@/constants/colors";
 import { places } from "@/constants/mockData";
+import { useLocalSearchParams } from "expo-router";
 import {
   Coffee,
   Layers,
@@ -12,12 +13,42 @@ import {
   Store,
   UtensilsCrossed,
 } from "lucide-react-native";
-import { Image, Pressable, ScrollView, View } from "react-native";
+import { useEffect, useMemo, useState } from "react";
+import { Animated, Image, Pressable, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ResumableZoom } from "react-native-zoom-toolkit";
 
 export function BerandaView() {
   const insets = useSafeAreaInsets();
+  const params = useLocalSearchParams();
+
+  // Home Toast Notification Management
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const fadeAnim = useMemo(() => new Animated.Value(0), []);
+
+  useEffect(() => {
+    if (params?.status === "submitted") {
+      setToastMessage(
+        "Terima kasih! Kontribusi ulasan Anda berhasil disimpan.",
+      );
+
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 350,
+          useNativeDriver: true,
+        }),
+        Animated.delay(2500),
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }),
+      ]).start(() => {
+        setToastMessage(null);
+      });
+    }
+  }, [params]);
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.bg }}>
@@ -49,10 +80,47 @@ export function BerandaView() {
             top: insets.top + 12,
             left: 16,
             right: 16,
+            zIndex: 10,
           }}
         >
           <SearchBar />
         </View>
+
+        {/* Floating Toast Notification right under Search Bar */}
+        {toastMessage && (
+          <Animated.View
+            style={{
+              position: "absolute",
+              top: insets.top + 74,
+              left: 16,
+              right: 16,
+              backgroundColor: COLORS.green400,
+              borderRadius: 14,
+              paddingVertical: 12,
+              paddingHorizontal: 16,
+              flexDirection: "row",
+              alignItems: "center",
+              shadowColor: "#000",
+              shadowOpacity: 0.15,
+              shadowRadius: 12,
+              shadowOffset: { width: 0, height: 4 },
+              elevation: 8,
+              opacity: fadeAnim,
+              zIndex: 100,
+            }}
+          >
+            <Text
+              style={{
+                color: COLORS.white,
+                fontWeight: "700",
+                fontSize: 13,
+                flex: 1,
+              }}
+            >
+              {toastMessage}
+            </Text>
+          </Animated.View>
+        )}
 
         {/* Map controls */}
         <View

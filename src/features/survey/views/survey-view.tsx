@@ -1,4 +1,6 @@
 import { AppButton } from "@/components/ui/app-button";
+import { SimpleToast } from "@/components/ui/simple-toast";
+import { SingleOptionModal } from "@/components/ui/single-option-modal";
 import { Text } from "@/components/ui/text";
 import { COLORS } from "@/constants/colors";
 import { Place } from "@/constants/mockData";
@@ -108,6 +110,14 @@ const questions = [
 export function SurveyView({ place }: Props) {
   const [step, setStep] = useState(0);
   const [selected, setSelected] = useState<Record<number, string[]>>({});
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastVariant, setToastVariant] = useState<"success" | "error">(
+    "success",
+  );
+  const [showSingleModal, setShowSingleModal] = useState(false);
+  const [singleModalTitle, setSingleModalTitle] = useState("");
+
   const q = useMemo(() => questions[step], [step]);
   const insets = useSafeAreaInsets();
 
@@ -127,6 +137,35 @@ export function SurveyView({ place }: Props) {
   };
 
   const isSelected = (label: string) => (selected[step] ?? []).includes(label);
+
+  const handleNextPress = () => {
+    const currentSelections = selected[step] ?? [];
+
+    if (currentSelections.length === 0) {
+      setToastMessage("Pilih setidaknya satu jawaban terlebih dahulu");
+      setToastVariant("error");
+      setShowToast(true);
+      return;
+    }
+
+    if (step < questions.length - 1) {
+      setToastMessage("Jawaban disimpan");
+      setToastVariant("success");
+      setShowToast(true);
+
+      setTimeout(() => {
+        setStep((s) => s + 1);
+      }, 200);
+    } else {
+      setSingleModalTitle("Ulasan berhasil dikirim");
+      setShowSingleModal(true);
+    }
+  };
+
+  const handleModalConfirmation = () => {
+    setShowSingleModal(false);
+    router.replace({ pathname: "/", params: { status: "submitted" } });
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.bg }}>
@@ -163,7 +202,6 @@ export function SurveyView({ place }: Props) {
         </Pressable>
       </ImageBackground>
 
-      {/* Card */}
       <View
         style={{
           marginTop: -28,
@@ -214,7 +252,6 @@ export function SurveyView({ place }: Props) {
           paddingBottom: insets.bottom + 16,
         }}
       >
-        {/* Progress */}
         <View style={{ flexDirection: "row", gap: 6, marginBottom: 20 }}>
           {questions.map((_, i) => (
             <View
@@ -304,12 +341,25 @@ export function SurveyView({ place }: Props) {
               : "Kirim Survei"
           }
           variant="dark"
-          onPress={() => {
-            if (step < questions.length - 1) setStep((s) => s + 1);
-            else router.replace("/");
-          }}
+          onPress={handleNextPress}
         />
       </View>
+
+      <SimpleToast
+        visible={showToast}
+        message={toastMessage}
+        onDismiss={() => setShowToast(false)}
+        duration={1500}
+        bottomOffset={insets.bottom + 80}
+        variant={toastVariant}
+      />
+
+      <SingleOptionModal
+        visible={showSingleModal}
+        title={singleModalTitle}
+        buttonLabel="Selesai"
+        onButtonPress={handleModalConfirmation}
+      />
     </View>
   );
 }

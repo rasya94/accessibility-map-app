@@ -1,4 +1,5 @@
 import { AppButton } from "@/components/ui/app-button";
+import { SimpleToast } from "@/components/ui/simple-toast";
 import { Text } from "@/components/ui/text";
 import { COLORS } from "@/constants/colors";
 import { Place } from "@/constants/mockData";
@@ -14,7 +15,16 @@ const LABELS = ["Sangat Buruk", "Buruk", "Cukup", "Bagus", "Sangat Bagus"];
 
 export function ReviewView({ place }: Props) {
   const [rating, setRating] = useState(0);
+  const [showToast, setShowToast] = useState(false);
   const insets = useSafeAreaInsets();
+
+  const handleNextPress = () => {
+    if (rating === 0) {
+      setShowToast(true);
+      return;
+    }
+    router.push(`/survey/${place.id}`);
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.bg }}>
@@ -51,7 +61,6 @@ export function ReviewView({ place }: Props) {
         </Pressable>
       </ImageBackground>
 
-      {/* Card */}
       <View
         style={{
           marginTop: -28,
@@ -95,7 +104,6 @@ export function ReviewView({ place }: Props) {
       </View>
 
       <View style={{ flex: 1, padding: 16, gap: 16 }}>
-        {/* Star rating */}
         <View
           style={{
             backgroundColor: COLORS.white,
@@ -133,7 +141,6 @@ export function ReviewView({ place }: Props) {
           )}
         </View>
 
-        {/* Text input */}
         <View
           style={{
             flex: 1,
@@ -162,9 +169,18 @@ export function ReviewView({ place }: Props) {
         <AppButton
           label="Mulai Survei"
           variant="dark"
-          onPress={() => router.push(`/survey/${place.id}`)}
+          onPress={handleNextPress}
         />
       </View>
+
+      <SimpleToast
+        visible={showToast}
+        message="Pilih bintang terlebih dahulu"
+        onDismiss={() => setShowToast(false)}
+        duration={1500}
+        bottomOffset={insets.bottom + 80}
+        variant="error"
+      />
     </View>
   );
 }
