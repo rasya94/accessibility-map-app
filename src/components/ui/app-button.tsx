@@ -1,6 +1,6 @@
-import { Pressable, ViewStyle } from "react-native";
 import { Text } from "@/components/ui/text";
 import { COLORS } from "@/constants/colors";
+import { Pressable, ViewStyle } from "react-native";
 
 type Props = {
   label: string;
@@ -8,6 +8,7 @@ type Props = {
   variant?: "primary" | "dark" | "ghost";
   style?: ViewStyle;
   disabled?: boolean;
+  icon?: React.ReactNode;
 };
 
 export function AppButton({
@@ -16,13 +17,14 @@ export function AppButton({
   variant = "primary",
   style,
   disabled,
+  icon,
 }: Props) {
-  const backgroundColor =
+  const bg =
     variant === "primary"
-      ? COLORS.green
+      ? COLORS.green400
       : variant === "dark"
-      ? COLORS.black
-      : "transparent";
+        ? COLORS.black
+        : "transparent";
 
   const color = variant === "ghost" ? COLORS.text : COLORS.white;
 
@@ -33,18 +35,25 @@ export function AppButton({
       style={({ pressed }) => [
         {
           minHeight: 54,
-          borderRadius: 18,
+          borderRadius: 16,
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor,
-          opacity: pressed || disabled ? 0.88 : 1,
-          borderWidth: variant === "ghost" ? 1 : 0,
+          backgroundColor: bg,
+          opacity: pressed || disabled ? 0.82 : 1,
+          borderWidth: variant === "ghost" ? 1.5 : 0,
           borderColor: COLORS.gray200,
+          flexDirection: "row",
+          gap: 8,
         },
         style,
       ]}
     >
-      <Text style={{ color, fontSize: 16, fontWeight: "700" }}>{label}</Text>
+      {icon}
+      <Text
+        style={{ color, fontSize: 15, fontWeight: "700", letterSpacing: 0.2 }}
+      >
+        {label}
+      </Text>
     </Pressable>
   );
 }
