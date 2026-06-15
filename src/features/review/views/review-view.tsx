@@ -4,7 +4,7 @@ import { Text } from "@/components/ui/text";
 import { COLORS } from "@/constants/colors";
 import { Place } from "@/constants/mockData";
 import { router } from "expo-router";
-import { ArrowLeft, MapPin, Star } from "lucide-react-native";
+import { ArrowLeft, MapPin, Star, Image as ImageIcon } from "lucide-react-native";
 import { useState } from "react";
 import { ImageBackground, Pressable, TextInput, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -24,6 +24,10 @@ export function ReviewView({ place }: Props) {
       return;
     }
     router.push(`/survey/${place.id}`);
+  };
+
+  const handleUploadImage = () => {
+    // Logic untuk image picker bisa diintegrasikan di sini
   };
 
   return (
@@ -166,9 +170,30 @@ export function ReviewView({ place }: Props) {
           />
         </View>
 
+        <Pressable
+          onPress={handleUploadImage}
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+            backgroundColor: COLORS.white,
+            borderRadius: 16,
+            padding: 14,
+            borderWidth: 1.5,
+            borderColor: COLORS.gray200,
+            borderStyle: "dashed",
+          }}
+        >
+          <ImageIcon size={18} color={COLORS.muted} />
+          <Text style={{ fontSize: 14, fontWeight: "600", color: COLORS.muted }}>
+            Tambah Foto
+          </Text>
+        </Pressable>
+
         <AppButton
           label="Mulai Survei"
-          variant="dark"
+          variant={rating === 0 ? "disabled" : "dark"}
           onPress={handleNextPress}
         />
       </View>

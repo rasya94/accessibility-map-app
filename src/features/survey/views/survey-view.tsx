@@ -121,6 +121,9 @@ export function SurveyView({ place }: Props) {
   const q = useMemo(() => questions[step], [step]);
   const insets = useSafeAreaInsets();
 
+  const currentSelections = useMemo(() => selected[step] ?? [], [selected, step]);
+  const hasSelectedOption = currentSelections.length > 0;
+
   const toggle = (label: string) => {
     setSelected((prev) => {
       const current = prev[step] ?? [];
@@ -136,12 +139,10 @@ export function SurveyView({ place }: Props) {
     });
   };
 
-  const isSelected = (label: string) => (selected[step] ?? []).includes(label);
+  const isSelected = (label: string) => currentSelections.includes(label);
 
   const handleNextPress = () => {
-    const currentSelections = selected[step] ?? [];
-
-    if (currentSelections.length === 0) {
+    if (!hasSelectedOption) {
       setToastMessage("Pilih setidaknya satu jawaban terlebih dahulu");
       setToastVariant("error");
       setShowToast(true);
@@ -340,7 +341,7 @@ export function SurveyView({ place }: Props) {
               ? `Selanjutnya (${step + 1}/${questions.length})`
               : "Kirim Survei"
           }
-          variant="dark"
+          variant={hasSelectedOption ? "dark" : "disabled"}
           onPress={handleNextPress}
         />
       </View>
