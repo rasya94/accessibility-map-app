@@ -35,15 +35,15 @@ export function PlaceCard({ place }: Props) {
         alignItems: "stretch",
         opacity: pressed ? 0.9 : 1,
         shadowColor: COLORS.shadow,
-        shadowOpacity: 0.06,
-        shadowRadius: 12,
-        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.04,
+        shadowRadius: 32,
+        shadowOffset: { width: 0, height: 2 },
         elevation: 2,
       })}
     >
       <Image
         source={{ uri: place.image }}
-        style={{ width: 92, height: 110, borderRadius: 20 }} // Slightly wider (92), keeping the tall aspect ratio
+        style={{ width: 96, height: 126, borderRadius: 20 }} // Slightly wider (92), keeping the tall aspect ratio
       />
 
       {/* Main container holding both details and the bottom-right meta badge */}
@@ -61,7 +61,7 @@ export function PlaceCard({ place }: Props) {
           <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
             <MapPin size={14} color={COLORS.gray600} />
             <Text
-              style={{ fontSize: 13, color: COLORS.muted, flex: 1 }}
+              style={{ fontSize: 13, color: COLORS.gray500, flex: 1, fontWeight: "700" }}
               numberOfLines={1}
             >
               {place.address}
@@ -72,11 +72,11 @@ export function PlaceCard({ place }: Props) {
           <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
             <Star size={14} color={COLORS.green400} fill={COLORS.green400} />
             <Text
-              style={{ fontSize: 13, color: COLORS.gray600, fontWeight: "600" }}
+              style={{ fontSize: 13, color: COLORS.gray500, fontWeight: "700" }}
             >
               {place.rating}
             </Text>
-            <Text style={{ fontSize: 13, color: COLORS.muted }}>
+            <Text style={{ fontSize: 13, color: COLORS.gray300, fontWeight: "700" }}>
               ({place.reviews} ulasan)
             </Text>
           </View>
@@ -86,14 +86,15 @@ export function PlaceCard({ place }: Props) {
         <View style={{ alignItems: "flex-end" }}>
           <View
             style={{
-              paddingHorizontal: 12,
-              paddingVertical: 6,
-              borderRadius: 12,
+              marginTop: 10,
+              paddingHorizontal: 16,
+              paddingVertical: 8,
+              borderRadius: 20,
               backgroundColor: meta.color,
             }}
           >
             <Text
-              style={{ color: COLORS.white, fontWeight: "600", fontSize: 12 }}
+              style={{ color: COLORS.white, fontWeight: "700", fontSize: 12 }}
             >
               {meta.label}
             </Text>

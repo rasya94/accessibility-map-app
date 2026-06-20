@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
-import { 
-  View, 
-  StyleSheet, 
-  TextInput, 
-  Pressable, 
-  ScrollView, 
-  ActivityIndicator, 
-  Dimensions, 
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Pressable,
+  ScrollView,
+  ActivityIndicator,
+  Dimensions,
   Keyboard,
   Animated,
   PanResponder
@@ -26,43 +26,51 @@ import { PlaceCard } from "@/components/ui/place-card";
 const { height } = Dimensions.get("window");
 
 // --- KONFIGURASI 3-STATE BOTTOM SHEET ---
-const SHEET_MAX_HEIGHT = height * 0.88; 
-const SHEET_MID_HEIGHT = height * 0.45; 
-const SHEET_MIN_HEIGHT = 74;            
+const SHEET_MAX_HEIGHT = height * 0.88;
+const SHEET_MID_HEIGHT = height * 0.45;
+const SHEET_MIN_HEIGHT = 74;
 
-const POS_TOP = 0; 
-const POS_MID = SHEET_MAX_HEIGHT - SHEET_MID_HEIGHT; 
+const POS_TOP = 0;
+const POS_MID = SHEET_MAX_HEIGHT - SHEET_MID_HEIGHT;
 const POS_BOTTOM = SHEET_MAX_HEIGHT - SHEET_MIN_HEIGHT;
 
 export function BerandaView() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const params = useLocalSearchParams();
-  
+
   // --- STATE NOTIFIKASI TOAST (Dari file asli) ---
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const fadeAnim = useMemo(() => new Animated.Value(0), []);
 
+  const { status } = useLocalSearchParams();
+
   useEffect(() => {
-    // Akan aktif jika kembali dari halaman ulasan dengan status sukses
-    if (params?.status === "submitted") {
+    // Hanya jalankan jika status benar-benar bernilai "submitted"
+    if (status === "submitted") {
       setToastMessage("Terima kasih! Kontribusi ulasan Anda berhasil disimpan.");
+
+      // Pastikan animasi berjalan bersih
+      fadeAnim.setValue(0);
+
       Animated.sequence([
         Animated.timing(fadeAnim, { toValue: 1, duration: 350, useNativeDriver: true }),
         Animated.delay(2500),
         Animated.timing(fadeAnim, { toValue: 0, duration: 300, useNativeDriver: true }),
       ]).start(() => {
         setToastMessage(null);
+        // Opsional: Bersihkan parameter rute agar toast tidak muncul kembali saat orientasi layar berubah
+        router.setParams({ status: undefined });
       });
     }
-  }, [params]);
+  }, [status, fadeAnim, router]);
 
   // --- STATE PENCARIAN & LOKASI ---
   const [searchQuery, setSearchQuery] = useState("");
-  const [isSearchFocused, setIsSearchFocused] = useState(false); 
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [predictions, setPredictions] = useState<any[]>([]);
   const [isFetchingLocation, setIsFetchingLocation] = useState(false);
-  const [isListening, setIsListening] = useState(false); 
+  const [isListening, setIsListening] = useState(false);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const [recentSearches, setRecentSearches] = useState<any[]>([
@@ -78,7 +86,7 @@ export function BerandaView() {
     longitudeDelta: 0.05,
   });
 
-  const [searchedLocation, setSearchedLocation] = useState<{lat: number, lng: number} | null>(null);
+  const [searchedLocation, setSearchedLocation] = useState<{ lat: number, lng: number } | null>(null);
 
   // --- ANIMASI BOTTOM SHEET ---
   const translateY = useRef(new Animated.Value(POS_MID)).current;
@@ -166,7 +174,7 @@ export function BerandaView() {
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
       });
-      setSearchedLocation(null); 
+      setSearchedLocation(null);
     } catch (error) {
       console.log("Error getting location", error);
     } finally {
@@ -196,27 +204,27 @@ export function BerandaView() {
   };
 
   const handleVoiceSearch = () => {
-    setIsListening(true); 
-    setSearchQuery(""); 
+    setIsListening(true);
+    setSearchQuery("");
     setTimeout(() => {
       setIsListening(false);
-      const simulatedVoiceInput = "Balai Kota Surabaya"; 
+      const simulatedVoiceInput = "Balai Kota Surabaya";
       setSearchQuery(simulatedVoiceInput);
-      handleSearch(simulatedVoiceInput); 
+      handleSearch(simulatedVoiceInput);
     }, 2000);
   };
 
   const selectPrediction = (item: any) => {
-    Keyboard.dismiss(); 
-    setIsSearchFocused(false); 
+    Keyboard.dismiss();
+    setIsSearchFocused(false);
     setSearchQuery(item.display_name);
-    setPredictions([]); 
-    
+    setPredictions([]);
+
     const lat = parseFloat(item.lat);
     const lng = parseFloat(item.lon);
 
     const isAlreadyRecent = recentSearches.some(recent => recent.display_name === item.display_name);
-    if (!isAlreadyRecent) setRecentSearches(prev => [item, ...prev].slice(0, 5)); 
+    if (!isAlreadyRecent) setRecentSearches(prev => [item, ...prev].slice(0, 5));
 
     setMapRegion({
       latitude: lat, longitude: lng, latitudeDelta: 0.005, longitudeDelta: 0.005,
@@ -234,7 +242,7 @@ export function BerandaView() {
         style={StyleSheet.absoluteFillObject}
         region={mapRegion}
         showsUserLocation={true}
-        showsMyLocationButton={false} 
+        showsMyLocationButton={false}
         showsCompass={false}
         onPress={() => {
           Keyboard.dismiss();
@@ -316,7 +324,7 @@ export function BerandaView() {
 
       {/* 5. BOTTOM SHEET DENGAN PLACE CARD ASLI ANDA */}
       <Animated.View style={[styles.bottomSheet, { transform: [{ translateY }] }]}>
-        
+
         <Pressable {...panResponder.panHandlers} onPress={handleHeaderPress} style={styles.sheetHeaderArea}>
           <View style={styles.dragIndicator} />
           <View style={styles.sheetHeader}>
@@ -325,14 +333,14 @@ export function BerandaView() {
           </View>
         </Pressable>
 
-        <ScrollView 
-          showsVerticalScrollIndicator={false} 
+        <ScrollView
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={[styles.listContainer, { paddingBottom: insets.bottom + 24 }]}
         >
           {places.map((place) => (
             <Pressable key={place.id} onPress={() => router.push(`/place/${place.id}`)}>
-               {/* Memanggil Custom Component asli Anda! */}
-               <PlaceCard place={place} />
+              {/* Memanggil Custom Component asli Anda! */}
+              <PlaceCard place={place} />
             </Pressable>
           ))}
         </ScrollView>
@@ -344,7 +352,7 @@ export function BerandaView() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bg },
   searchContainer: { position: "absolute", left: 16, right: 16, zIndex: 10 },
-  searchBar: { flexDirection: "row", alignItems: "center", backgroundColor: COLORS.white, borderRadius: 30, paddingHorizontal: 16, paddingVertical: 12, shadowColor: COLORS.shadow, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 12, elevation: 5 },
+  searchBar: { flexDirection: "row", alignItems: "center", backgroundColor: COLORS.white, borderRadius: 30, paddingHorizontal: 16, paddingVertical: 10, shadowColor: COLORS.shadow, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 12, elevation: 5 },
   searchIcon: { marginRight: 10 },
   searchInput: { flex: 1, fontSize: 15, color: COLORS.text },
   divider: { width: 1, height: 24, backgroundColor: COLORS.gray200, marginHorizontal: 10 },
@@ -368,7 +376,7 @@ const styles = StyleSheet.create({
 
   bottomSheet: {
     position: "absolute", bottom: 0, left: 0, right: 0, backgroundColor: COLORS.white,
-    borderTopLeftRadius: 24, borderTopRightRadius: 24, height: SHEET_MAX_HEIGHT, 
+    borderTopLeftRadius: 24, borderTopRightRadius: 24, height: SHEET_MAX_HEIGHT,
     shadowColor: "#000", shadowOffset: { width: 0, height: -4 }, shadowOpacity: 0.1,
     shadowRadius: 12, elevation: 12, zIndex: 20,
   },

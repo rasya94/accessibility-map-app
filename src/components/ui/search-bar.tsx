@@ -14,7 +14,7 @@ export function SearchBar({ placeholder = "Cari lokasi..." }: Props) {
         alignItems: "center",
         backgroundColor: COLORS.white,
         borderRadius: 24,
-        height: 54, // Bumped slightly from 52 to perfectly frame the larger elements
+        height: 42, // Bumped slightly from 52 to perfectly frame the larger elements
         paddingHorizontal: 16,
         shadowColor: COLORS.shadow,
         shadowOpacity: 0.1,
