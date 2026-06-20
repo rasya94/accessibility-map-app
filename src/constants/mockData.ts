@@ -55,6 +55,66 @@ export const places: Place[] = [
     category: "Store",
     facilities: ["wheelchair", "parking"],
   },
+  {
+    id: "4",
+    name: "Bakmie Karet Kenangan",
+    address: "Jl. Raya Mulyosari No. 45",
+    rating: 4.8,
+    reviews: 156,
+    score: 85,
+    image:
+      "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&w=1200&q=80",
+    category: "Eatery",
+    facilities: ["wheelchair", "air", "parking"],
+  },
+  {
+    id: "5",
+    name: "Techno Cafe ITS",
+    address: "Area Kampus ITS Sukolilo",
+    rating: 4.5,
+    reviews: 89,
+    score: 95,
+    image:
+      "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&w=1200&q=80",
+    category: "Cafe",
+    facilities: ["wheelchair", "parking", "toilet", "air"],
+  },
+  {
+    id: "6",
+    name: "Ayam Geprek Juara",
+    address: "Jl. Keputih Perintis No. 12",
+    rating: 4.3,
+    reviews: 210,
+    score: 70,
+    image:
+      "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=1200&q=80",
+    category: "Eatery",
+    facilities: ["air", "parking"],
+  },
+  {
+    id: "7",
+    name: "Pakuwon Supermarket",
+    address: "Pakuwon Mall, Lantai Dasar",
+    rating: 4.9,
+    reviews: 432,
+    score: 98,
+    image:
+      "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1200&q=80",
+    category: "Store",
+    facilities: ["wheelchair", "lift", "escalator", "toilet", "parking"],
+  },
+  {
+    id: "8",
+    name: "Warung Sate Senayan",
+    address: "Tunjungan Plaza 4, Lantai 5",
+    rating: 4.7,
+    reviews: 320,
+    score: 88,
+    image:
+      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=80",
+    category: "Eatery",
+    facilities: ["wheelchair", "air", "toilet", "escalator"],
+  }
 ];
 
 export const facilityLabels: Record<FacilityKey, string> = {
