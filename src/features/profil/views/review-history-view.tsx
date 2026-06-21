@@ -103,7 +103,7 @@ export function ReviewHistoryView() {
         >
           <ArrowLeft size={20} color={COLORS.text} />
         </Pressable>
-        <Text style={{ fontSize: 18, fontWeight: "800", color: COLORS.text }}>
+        <Text style={{ fontSize: 18, fontFamily: "MonaSans-Bold", color: COLORS.text }}>
           Riwayat Ulasan
         </Text>
       </View>
@@ -162,7 +162,7 @@ export function ReviewHistoryView() {
                   <Text
                     style={[
                       reviewHistoryStyles.placeName,
-                      { fontSize: 16, fontWeight: "600", color: COLORS.text },
+                      { fontSize: 16, fontFamily: "MonaSans-SemiBold", color: COLORS.text },
                     ]}
                     numberOfLines={1}
                   >
@@ -171,7 +171,7 @@ export function ReviewHistoryView() {
                   <Text
                     style={[
                       reviewHistoryStyles.reviewText,
-                      { fontSize: 13, color: COLORS.gray300, fontWeight: "400" },
+                      { fontSize: 13, color: COLORS.gray300, fontFamily: "MonaSans-Regular" },
                     ]}
                   >
                     {item.status}
@@ -182,7 +182,7 @@ export function ReviewHistoryView() {
                 <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
                   <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
                     <Clock size={13} color={COLORS.gray600} />
-                    <Text style={{ fontSize: 13, color: COLORS.gray600, fontWeight: "400" }}>
+                    <Text style={{ fontSize: 13, color: COLORS.gray600, fontFamily: "MonaSans-Regular" }}>
                       {item.time}
                     </Text>
                   </View>

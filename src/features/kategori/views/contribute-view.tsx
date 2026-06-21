@@ -46,7 +46,7 @@ export function ContributeView() {
     >
       {/* Header */}
       <View style={{ paddingHorizontal: 16 }}>
-        <Text style={{ fontFamily: "MonaSans-Bold", fontSize: 22, fontWeight: "800", color: COLORS.text }}>
+        <Text style={{ fontFamily: "MonaSans-Bold", fontSize: 22, color: COLORS.text }}>
           Kontribusi
         </Text>
         <Text style={{ fontFamily: "MonaSans-Regular", fontSize: 14, color: COLORS.muted, marginTop: 4 }}>
@@ -65,14 +65,14 @@ export function ContributeView() {
             bg: COLORS.green1000,
             route: "/place/add", 
           },
-          {
-            icon: ClipboardList,
-            title: "Isi Survei Aksesibilitas",
-            desc: "Bantu perbarui data fasilitas tempat yang sudah ada.",
-            color: COLORS.orange,
-            bg: COLORS.orangeSoft,
-            route: "/survey/new", 
-          },
+          // {
+          //   icon: ClipboardList,
+          //   title: "Isi Survei Aksesibilitas",
+          //   desc: "Bantu perbarui data fasilitas tempat yang sudah ada.",
+          //   color: COLORS.orange,
+          //   bg: COLORS.orangeSoft,
+          //   route: "/survey/new", 
+          // },
           {
             icon: Star,
             title: "Tulis Ulasan",

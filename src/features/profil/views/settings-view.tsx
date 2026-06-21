@@ -35,7 +35,7 @@ export function SettingsView() {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.bg }}>
-      {/* Top Header - Tetap Sesuai Struktur Sebelumnya */}
+      {/* Top Header */}
       <View
         style={{
           flexDirection: "row",
@@ -63,7 +63,7 @@ export function SettingsView() {
         >
           <ArrowLeft size={20} color={COLORS.text} />
         </Pressable>
-        <Text style={{ fontSize: 18, fontWeight: "800", color: COLORS.text }}>
+        <Text style={{ fontSize: 18, fontFamily: "MonaSans-Bold", color: COLORS.text }}>
           Pengaturan
         </Text>
       </View>
@@ -79,7 +79,7 @@ export function SettingsView() {
       >
         {/* KELOMPOK 1: GENERAL */}
         <View style={{ gap: 10 }}>
-          <Text style={{ fontSize: 14, fontWeight: "700", color: COLORS.muted, paddingLeft: 4 }}>
+          <Text style={{ fontSize: 14, fontFamily: "MonaSans-Bold", color: COLORS.muted, paddingLeft: 4 }}>
             General
           </Text>
           <View style={{ backgroundColor: COLORS.white, borderRadius: 24, paddingHorizontal: 16, paddingVertical: 4 }}>
@@ -101,7 +101,7 @@ export function SettingsView() {
                 >
                   <View style={{ flexDirection: "row", alignItems: "center", gap: 14, flex: 1 }}>
                     <Icon size={20} color={COLORS.text} />
-                    <Text style={{ fontSize: 15, fontWeight: "600", color: COLORS.text }}>
+                    <Text style={{ fontSize: 15, fontFamily: "MonaSans-SemiBold", color: COLORS.text }}>
                       {item.label}
                     </Text>
                   </View>
@@ -114,7 +114,7 @@ export function SettingsView() {
 
         {/* KELOMPOK 2: SECURITY */}
         <View style={{ gap: 10 }}>
-          <Text style={{ fontSize: 14, fontWeight: "700", color: COLORS.muted, paddingLeft: 4 }}>
+          <Text style={{ fontSize: 14, fontFamily: "MonaSans-Bold", color: COLORS.muted, paddingLeft: 4 }}>
             Security
           </Text>
           <View style={{ backgroundColor: COLORS.white, borderRadius: 24, paddingHorizontal: 16, paddingVertical: 4 }}>
@@ -130,14 +130,14 @@ export function SettingsView() {
                     alignItems: "center",
                     justifyContent: "space-between",
                     paddingVertical: 16,
-                    borderBottomWidth: 1, // Ada border karena di bawahnya ada menu biometrik
+                    borderBottomWidth: 1.5,
                     borderBottomColor: COLORS.gray100,
                     opacity: pressed ? 0.7 : 1,
                   })}
                 >
                   <View style={{ flexDirection: "row", alignItems: "center", gap: 14, flex: 1 }}>
                     <Icon size={20} color={COLORS.text} />
-                    <Text style={{ fontSize: 15, fontWeight: "600", color: COLORS.text }}>
+                    <Text style={{ fontSize: 15, fontFamily: "MonaSans-SemiBold", color: COLORS.text }}>
                       {item.label}
                     </Text>
                   </View>
@@ -146,7 +146,7 @@ export function SettingsView() {
               );
             })}
 
-            {/* Tambahan Sesuai Mockup Screenshot: Biometrics Toggle (Switch) */}
+            {/* Biometrics Toggle (Switch) */}
             <View
               style={{
                 flexDirection: "row",
@@ -157,14 +157,14 @@ export function SettingsView() {
             >
               <View style={{ flexDirection: "row", alignItems: "center", gap: 14, flex: 1 }}>
                 <Fingerprint size={20} color={COLORS.text} />
-                <Text style={{ fontSize: 15, fontWeight: "600", color: COLORS.text }}>
+                <Text style={{ fontSize: 15, fontFamily: "MonaSans-SemiBold", color: COLORS.text }}>
                   Biometrics (Face ID / Sidik Jari)
                 </Text>
               </View>
               <Switch
                 value={isBiometricActive}
                 onValueChange={setIsBiometricActive}
-                trackColor={{ false: COLORS.gray200, true: "#4CD964" }} // Mengikuti aksen hijau switch di gambar figma
+                trackColor={{ false: COLORS.gray200, true: "#4CD964" }}
                 thumbColor={COLORS.white}
               />
             </View>
@@ -188,7 +188,7 @@ export function SettingsView() {
             })}
           >
             <LogOut size={18} color={COLORS.text} />
-            <Text style={{ fontSize: 15, fontWeight: "700", color: COLORS.text }}>
+            <Text style={{ fontSize: 15, fontFamily: "MonaSans-Bold", color: COLORS.text }}>
               Keluar Akun
             </Text>
           </Pressable>
@@ -208,7 +208,7 @@ export function SettingsView() {
             })}
           >
             <Trash2 size={18} color={COLORS.red} />
-            <Text style={{ fontSize: 15, fontWeight: "700", color: COLORS.red }}>
+            <Text style={{ fontSize: 15, fontFamily: "MonaSans-Bold", color: COLORS.red }}>
               Hapus Akun Permanen
             </Text>
           </Pressable>

@@ -9,74 +9,44 @@ import {
   ArrowLeft,
   ArrowUpCircle,
   ArrowUpDown,
-  Bath,
+  Toilet,
   CheckCircle2,
   CircleAlert,
   CircleX,
-  Hand,
+  DoorOpen,
   MapPin,
-  Snowflake,
   Star,
-  ThumbsDown,
-  ThumbsUp,
-  SquareParking
+  SquareParking,
+  Users,
+  Accessibility
 } from "lucide-react-native";
 import { useMemo, useState } from "react";
-import { ImageBackground, Pressable, View } from "react-native";
+import { ImageBackground, Pressable, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type Props = { place: Place };
 
 const questions = [
   {
-    title: "Apakah Lokasi ini Aksesibel untuk pengguna kursi roda?",
-    multi: false,
-    options: [
-      {
-        label: "Ya!",
-        icon: ThumbsUp,
-        color: COLORS.green400,
-        bg: COLORS.green1000,
-      },
-      {
-        label: "Sebagian",
-        icon: Hand,
-        color: COLORS.orange,
-        bg: COLORS.orangeSoft,
-      },
-      {
-        label: "Tidak",
-        icon: ThumbsDown,
-        color: COLORS.red,
-        bg: COLORS.redSoft,
-      },
-    ],
-  },
-  {
-    title: "Pilih Fasilitas yang tersedia.",
+    title: "Pilih fasilitas aksesibilitas yang tersedia:",
     multi: true,
+    required: false,
     options: [
       {
-        label: "Air Conditioner",
-        icon: Snowflake,
-        color: COLORS.green400,
-        bg: COLORS.green1000,
-      },
-      {
-        label: "Lift",
+        label: "Ramp / Jalur Kursi Roda",
         icon: ArrowUpDown,
         color: COLORS.green400,
         bg: COLORS.green1000,
       },
       {
-        label: "Eskalator",
+        label: "Lift Aksesibel",
         icon: ArrowUpCircle,
         color: COLORS.green400,
         bg: COLORS.green1000,
       },
       {
-        label: "Kamar Mandi Difabel",
-        icon: Bath,
+        label: "Toilet Difabel",
+        icon: Toilet,
         color: COLORS.green400,
         bg: COLORS.green1000,
       },
@@ -86,26 +56,120 @@ const questions = [
         color: COLORS.green400,
         bg: COLORS.green1000,
       },
+      {
+        label: "Pintu Otomatis",
+        icon: DoorOpen,
+        color: COLORS.green400,
+        bg: COLORS.green1000,
+      },
+      {
+        label: "Staf Pendamping",
+        icon: Users,
+        color: COLORS.green400,
+        bg: COLORS.green1000,
+      },
+      {
+        label: "Kursi Roda Tersedia",
+        icon: Accessibility,
+        color: COLORS.green400,
+        bg: COLORS.green1000,
+      },
     ],
   },
   {
-    title: "Apakah jalur masuk memiliki hambatan?",
+    title: "Bagaimana kondisi akses masuk utama?",
     multi: false,
+    required: true,
     options: [
       {
-        label: "Tidak ada hambatan",
+        label: "Datar tanpa anak tangga",
         icon: CheckCircle2,
         color: COLORS.green400,
         bg: COLORS.green1000,
       },
       {
-        label: "Ada beberapa tangga",
+        label: "Ada undakan kecil",
         icon: CircleAlert,
         color: COLORS.orange,
         bg: COLORS.orangeSoft,
       },
       {
-        label: "Sulit diakses",
+        label: "Terdapat tangga atau halangan",
+        icon: CircleX,
+        color: COLORS.red,
+        bg: COLORS.redSoft,
+      },
+    ],
+  },
+  {
+    title: "Bagaimana keleluasaan bergerak di dalam area?",
+    multi: false,
+    required: true,
+    options: [
+      {
+        label: "Luas tanpa hambatan fisik",
+        icon: CheckCircle2,
+        color: COLORS.green400,
+        bg: COLORS.green1000,
+      },
+      {
+        label: "Sempit di titik tertentu",
+        icon: CircleAlert,
+        color: COLORS.orange,
+        bg: COLORS.orangeSoft,
+      },
+      {
+        label: "Penuh sekat menyulitkan",
+        icon: CircleX,
+        color: COLORS.red,
+        bg: COLORS.redSoft,
+      },
+    ],
+  },
+  {
+    title: "Bagaimana kemudahan menuju area drop-off kendaraan?",
+    multi: false,
+    required: true,
+    options: [
+      {
+        label: "Sangat dekat pintu masuk",
+        icon: CheckCircle2,
+        color: COLORS.green400,
+        bg: COLORS.green1000,
+      },
+      {
+        label: "Cukup berjarak",
+        icon: CircleAlert,
+        color: COLORS.orange,
+        bg: COLORS.orangeSoft,
+      },
+      {
+        label: "Sangat jauh, terpisah",
+        icon: CircleX,
+        color: COLORS.red,
+        bg: COLORS.redSoft,
+      },
+    ],
+  },
+  {
+    title: "Apakah kondisi permukaan lantai aman dilalui?",
+    multi: false,
+    required: true,
+    options: [
+      {
+        label: "Rata dan tidak licin",
+        icon: CheckCircle2,
+        color: COLORS.green400,
+        bg: COLORS.green1000,
+      },
+      {
+        label: "Kasar, sedikit licin, atau bergelombang",
+        icon: CircleAlert,
+        color: COLORS.orange,
+        bg: COLORS.orangeSoft,
+      },
+      {
+        label: "Berpotensi berbahaya",
         icon: CircleX,
         color: COLORS.red,
         bg: COLORS.redSoft,
@@ -129,7 +193,12 @@ export function SurveyView({ place }: Props) {
   const insets = useSafeAreaInsets();
 
   const currentSelections = useMemo(() => selected[step] ?? [], [selected, step]);
-  const hasSelectedOption = currentSelections.length > 0;
+  
+  // A step is valid if it's explicitly not required, OR if it has at least one item selected
+  const isValidStep = useMemo(() => {
+    if (q.required === false) return true;
+    return currentSelections.length > 0;
+  }, [q, currentSelections]);
 
   const toggle = (label: string) => {
     setSelected((prev) => {
@@ -149,8 +218,8 @@ export function SurveyView({ place }: Props) {
   const isSelected = (label: string) => currentSelections.includes(label);
 
   const handleNextPress = () => {
-    if (!hasSelectedOption) {
-      setToastMessage("Pilih setidaknya satu jawaban terlebih dahulu");
+    if (!isValidStep) {
+      setToastMessage("Pilih salah satu jawaban terlebih dahulu");
       setToastVariant("error");
       setShowToast(true);
       return;
@@ -218,8 +287,8 @@ export function SurveyView({ place }: Props) {
           marginTop: -28,
           marginHorizontal: 16,
           backgroundColor: COLORS.white,
-          borderRadius: 22,
-          padding: 18,
+          borderRadius: 28,
+          padding: 24,
           shadowColor: COLORS.shadow,
           shadowOpacity: 0.1,
           shadowRadius: 20,
@@ -227,7 +296,7 @@ export function SurveyView({ place }: Props) {
           elevation: 6,
         }}
       >
-        <Text style={{ fontSize: 18, fontWeight: "800", color: COLORS.text }}>
+        <Text style={{ fontSize: 18, fontFamily: "MonaSans-Bold", color: COLORS.text }}>
           {place.name}
         </Text>
         <View
@@ -239,17 +308,17 @@ export function SurveyView({ place }: Props) {
           }}
         >
           <Star size={13} color={COLORS.green400} fill={COLORS.green400} />
-          <Text style={{ color: COLORS.text, fontWeight: "700", fontSize: 13 }}>
+          <Text style={{ color: COLORS.text, fontFamily: "MonaSans-Bold", fontSize: 13 }}>
             {place.rating}
           </Text>
-          <Text style={{ color: COLORS.muted, fontSize: 13 }}>
+          <Text style={{ color: COLORS.muted, fontFamily: "MonaSans-Regular", fontSize: 13 }}>
             ({place.reviews})
           </Text>
           <View
             style={{ width: 1, height: 12, backgroundColor: COLORS.gray200 }}
           />
           <MapPin size={13} color={COLORS.muted} />
-          <Text style={{ color: COLORS.muted, fontSize: 13 }} numberOfLines={1}>
+          <Text style={{ color: COLORS.muted, fontFamily: "MonaSans-Regular", fontSize: 13 }} numberOfLines={1}>
             {place.address}
           </Text>
         </View>
@@ -277,19 +346,29 @@ export function SurveyView({ place }: Props) {
           ))}
         </View>
 
-        <Text
-          style={{
-            fontSize: 18,
-            fontWeight: "800",
-            color: COLORS.text,
-            lineHeight: 26,
-            marginBottom: 18,
-          }}
-        >
-          {q.title}
-        </Text>
+        <View style={{ marginBottom: 18 }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: "MonaSans-Bold",
+              color: COLORS.text,
+              lineHeight: 26,
+            }}
+          >
+            {q.title}
+          </Text>
+          {q.required === false && (
+            <Text style={{ fontSize: 13, fontFamily: "MonaSans-Regular", color: COLORS.muted, marginTop: 4 }}>
+              Pilihan ini opsional, bisa langsung klik lanjut jika tidak ada fasilitas.
+            </Text>
+          )}
+        </View>
 
-        <View style={{ gap: 10, flex: 1 }}>
+        <ScrollView 
+          style={{ flex: 1 }} 
+          contentContainerStyle={{ gap: 10, paddingBottom: 20 }}
+          showsVerticalScrollIndicator={false}
+        >
           {q.options.map((opt) => {
             const Icon = opt.icon;
             const active = isSelected(opt.label);
@@ -334,7 +413,7 @@ export function SurveyView({ place }: Props) {
                     style={{
                       fontSize: 14,
                       color: active ? opt.color : COLORS.text,
-                      fontWeight: active ? "700" : "500",
+                      fontFamily: active ? "MonaSans-Bold" : "MonaSans-Medium",
                     }}
                   >
                     {opt.label}
@@ -343,7 +422,7 @@ export function SurveyView({ place }: Props) {
               </Pressable>
             );
           })}
-        </View>
+        </ScrollView>
 
         <AppButton
           label={
@@ -351,7 +430,7 @@ export function SurveyView({ place }: Props) {
               ? `Selanjutnya (${step + 1}/${questions.length})`
               : "Kirim Survei"
           }
-          variant={hasSelectedOption ? "dark" : "disabled"}
+          variant={isValidStep ? "dark" : "disabled"}
           onPress={handleNextPress}
         />
       </View>

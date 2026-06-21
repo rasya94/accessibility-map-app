@@ -69,7 +69,7 @@ export function HelpView() {
         >
           <ArrowLeft size={20} color={COLORS.text} />
         </Pressable>
-        <Text style={{ fontSize: 18, fontWeight: "800", color: COLORS.text }}>
+        <Text style={{ fontSize: 18, fontFamily: "MonaSans-Bold", color: COLORS.text }}>
           Pusat Bantuan
         </Text>
       </View>
@@ -103,7 +103,6 @@ export function HelpView() {
                 key={index}
                 style={{
                   paddingVertical: 18,
-
                   borderBottomWidth: index === sections.length - 1 ? 0 : 1,
                   borderBottomColor: COLORS.gray100,
                   gap: 8,
@@ -123,14 +122,14 @@ export function HelpView() {
                   >
                     <IconComponent size={18} color={item.iconColor} />
                   </View>
-                  <Text style={{ fontSize: 15, fontWeight: "700", color: COLORS.text, flex: 1 }}>
+                  <Text style={{ fontSize: 15, fontFamily: "MonaSans-Bold", color: COLORS.text, flex: 1 }}>
                     {item.title}
                   </Text>
                 </View>
 
                 {/* Deskripsi Teks */}
                 <View style={{ paddingLeft: 46, paddingRight: 4 }}>
-                  <Text style={{ fontSize: 13, color: COLORS.gray600, lineHeight: 19, fontWeight: "400" }}>
+                  <Text style={{ fontSize: 13, color: COLORS.gray600, lineHeight: 19, fontFamily: "MonaSans-Regular" }}>
                     {item.text}
                   </Text>
                 </View>

@@ -44,7 +44,7 @@ export function AppButton({
       style={({ pressed }) => [
         {
           minHeight: 54,
-          borderRadius: 16,
+          borderRadius: 24,
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: bg,

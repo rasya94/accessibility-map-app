@@ -70,8 +70,8 @@ export function ReviewView({ place }: Props) {
           marginTop: -28,
           marginHorizontal: 16,
           backgroundColor: COLORS.white,
-          borderRadius: 22,
-          padding: 18,
+          borderRadius: 28,
+          padding: 24,
           shadowColor: COLORS.shadow,
           shadowOpacity: 0.1,
           shadowRadius: 20,
@@ -79,7 +79,7 @@ export function ReviewView({ place }: Props) {
           elevation: 6,
         }}
       >
-        <Text style={{ fontSize: 18, fontWeight: "800", color: COLORS.text }}>
+        <Text style={{ fontSize: 18, fontFamily: "MonaSans-Bold", color: COLORS.text }}>
           {place.name}
         </Text>
         <View
@@ -91,17 +91,17 @@ export function ReviewView({ place }: Props) {
           }}
         >
           <Star size={13} color={COLORS.green400} fill={COLORS.green400} />
-          <Text style={{ color: COLORS.text, fontWeight: "700", fontSize: 13 }}>
+          <Text style={{ color: COLORS.text, fontFamily: "MonaSans-Bold", fontSize: 13 }}>
             {place.rating}
           </Text>
-          <Text style={{ color: COLORS.muted, fontSize: 13 }}>
+          <Text style={{ color: COLORS.muted, fontSize: 13, fontFamily: "MonaSans-Regular" }}>
             ({place.reviews})
           </Text>
           <View
             style={{ width: 1, height: 12, backgroundColor: COLORS.gray200 }}
           />
           <MapPin size={13} color={COLORS.muted} />
-          <Text style={{ color: COLORS.muted, fontSize: 13 }} numberOfLines={1}>
+          <Text style={{ color: COLORS.muted, fontSize: 13, fontFamily: "MonaSans-Regular" }} numberOfLines={1}>
             {place.address}
           </Text>
         </View>
@@ -111,13 +111,13 @@ export function ReviewView({ place }: Props) {
         <View
           style={{
             backgroundColor: COLORS.white,
-            borderRadius: 20,
+            borderRadius: 28,
             padding: 20,
             alignItems: "center",
             gap: 12,
           }}
         >
-          <Text style={{ fontSize: 14, fontWeight: "700", color: COLORS.text }}>
+          <Text style={{ fontSize: 14, fontFamily: "MonaSans-Bold", color: COLORS.text }}>
             Berikan Penilaian
           </Text>
           <View style={{ flexDirection: "row", gap: 12 }}>
@@ -137,7 +137,7 @@ export function ReviewView({ place }: Props) {
               style={{
                 fontSize: 13,
                 color: COLORS.green400,
-                fontWeight: "700",
+                fontFamily: "MonaSans-Bold",
               }}
             >
               {LABELS[rating - 1]}
@@ -148,7 +148,7 @@ export function ReviewView({ place }: Props) {
         <View
           style={{
             flex: 1,
-            borderRadius: 20,
+            borderRadius: 28,
             borderWidth: 1.5,
             borderColor: COLORS.gray200,
             backgroundColor: COLORS.white,
@@ -164,7 +164,7 @@ export function ReviewView({ place }: Props) {
               fontSize: 14,
               color: COLORS.text,
               textAlignVertical: "top",
-              fontFamily: "MonaSans",
+              fontFamily: "MonaSans-Regular",
               lineHeight: 22,
             }}
           />
@@ -178,7 +178,7 @@ export function ReviewView({ place }: Props) {
             justifyContent: "center",
             gap: 8,
             backgroundColor: COLORS.white,
-            borderRadius: 16,
+            borderRadius: 28,
             padding: 14,
             borderWidth: 1.5,
             borderColor: COLORS.gray200,
@@ -186,13 +186,13 @@ export function ReviewView({ place }: Props) {
           }}
         >
           <ImageIcon size={18} color={COLORS.muted} />
-          <Text style={{ fontSize: 14, fontWeight: "600", color: COLORS.muted }}>
+          <Text style={{ fontSize: 14, fontFamily: "MonaSans-SemiBold", color: COLORS.muted }}>
             Tambah Foto
           </Text>
         </Pressable>
 
         <AppButton
-          label="Mulai Survei"
+          label="Lanjut ke Survei"
           variant={rating === 0 ? "disabled" : "dark"}
           onPress={handleNextPress}
         />

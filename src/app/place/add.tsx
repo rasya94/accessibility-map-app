@@ -22,11 +22,12 @@ import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location"; 
 
 const FACILITIES_LIST = [
-  "Jalur Landai (Ramp)",
-  "Parkir Disabilitas",
-  "Toilet Khusus",
+  "Ramp / Jalur Kursi Roda",
   "Lift Aksesibel",
-  "Pintu Lebar",
+  "Toilet Difabel",
+  "Parkiran Khusus",
+  "Pintu Otomatis",
+  "Staf Pendamping",
   "Kursi Roda Tersedia",
 ];
 
@@ -47,13 +48,12 @@ export default function AddPlaceScreen() {
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null); 
 
   const [errors, setErrors] = useState({ 
-    name: false, location: false, description: false, images: false, facilities: false 
+    name: false, location: false, description: false, images: false
   });
   
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
 
-  // --- FUNGSI LIVE LOCATION PETA ---
   const getCurrentLocation = async () => {
     Keyboard.dismiss();
     setIsFetchingLocation(true);
@@ -83,7 +83,6 @@ export default function AddPlaceScreen() {
     }
   };
 
-  // --- FUNGSI PENCARIAN LOKASI ---
   const handleLocationSearch = (text: string) => {
     setLocation(text);
     if (errors.location) setErrors({ ...errors, location: false });
@@ -117,7 +116,6 @@ export default function AddPlaceScreen() {
       ? selectedFacilities.filter((f) => f !== facility) 
       : [...selectedFacilities, facility];
     setSelectedFacilities(updatedFacilities);
-    if (errors.facilities && updatedFacilities.length > 0) setErrors({ ...errors, facilities: false });
   };
 
   const pickImage = async () => {
@@ -147,7 +145,6 @@ export default function AddPlaceScreen() {
       location: location.trim() === "",
       description: description.trim() === "",
       images: imageUris.length === 0,
-      facilities: selectedFacilities.length === 0, 
     };
     setErrors(newErrors);
     const hasError = Object.values(newErrors).some(Boolean);
@@ -169,7 +166,6 @@ export default function AddPlaceScreen() {
 
       <ScrollView 
         style={{ flex: 1 }}
-        // Scroll akan berhenti tepat dengan jarak 24px di bawah tombol Tambahkan
         contentContainerStyle={[styles.scrollContent, { paddingBottom: insets.bottom + 24 }]} 
         showsVerticalScrollIndicator={false} 
         keyboardShouldPersistTaps="handled"
@@ -257,8 +253,8 @@ export default function AddPlaceScreen() {
 
         {/* FASILITAS */}
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>Fasilitas Aksesibilitas <Text style={styles.requiredMark}>*</Text></Text>
-          <View style={[styles.facilitiesWrapper, errors.facilities && styles.inputErrorBorder]}>
+          <Text style={styles.label}>Fasilitas Aksesibilitas</Text>
+          <View style={styles.facilitiesWrapper}>
             <View style={styles.facilitiesContainer}>
               {FACILITIES_LIST.map((facility) => {
                 const isSelected = selectedFacilities.includes(facility);
@@ -325,14 +321,14 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bg },
   header: { flexDirection: "row", alignItems: "center", paddingHorizontal: 16, marginBottom: 20, gap: 12 },
   backButton: { padding: 4 },
-  headerTitle: { fontSize: 20, fontWeight: "800", color: COLORS.text },
+  headerTitle: { fontSize: 20, fontFamily: "MonaSans-Bold", color: COLORS.text },
   
   scrollContent: { flexGrow: 1, paddingHorizontal: 16, gap: 24 }, 
   
   inputGroup: { gap: 10 },
-  label: { fontSize: 14, fontWeight: "700", color: COLORS.text },
+  label: { fontSize: 16, fontFamily: "MonaSans-Bold", color: COLORS.text },
   requiredMark: { color: "#ef4444" },
-  input: { backgroundColor: COLORS.white, borderWidth: 1.5, borderColor: COLORS.gray200, borderRadius: 14, paddingHorizontal: 16, paddingVertical: 14, fontSize: 15, color: COLORS.text },
+  input: { backgroundColor: COLORS.white, borderWidth: 1.5, borderColor: COLORS.gray200, borderRadius: 14, paddingHorizontal: 16, paddingVertical: 14, fontSize: 15, fontFamily: "MonaSans-Medium", color: COLORS.text },
   inputErrorBorder: { borderColor: "#ef4444" },
   locationInputContainer: { flexDirection: "row", alignItems: "center", backgroundColor: COLORS.white, borderWidth: 1.5, borderColor: COLORS.gray200, borderRadius: 14, overflow: "hidden" },
   
@@ -340,14 +336,14 @@ const styles = StyleSheet.create({
   
   inlinePredictionsContainer: { backgroundColor: COLORS.white, borderWidth: 1.5, borderColor: COLORS.gray200, borderRadius: 14, marginTop: 4, overflow: "hidden" },
   predictionItem: { flexDirection: "row", padding: 14, borderBottomWidth: 1, borderBottomColor: COLORS.gray100 },
-  predictionText: { fontSize: 13, color: COLORS.text, flex: 1, lineHeight: 18 },
+  predictionText: { fontSize: 13, color: COLORS.text, fontFamily: "MonaSans-Regular", flex: 1, lineHeight: 18 },
 
   facilitiesWrapper: { borderRadius: 16, borderWidth: 1.5, borderColor: "transparent", padding: 2 },
   facilitiesContainer: { flexDirection: "row", flexWrap: "wrap", gap: 10 },
   facilityChip: { flexDirection: "row", alignItems: "center", backgroundColor: COLORS.white, borderWidth: 1, borderColor: COLORS.gray200, paddingHorizontal: 14, paddingVertical: 10, borderRadius: 20 },
   facilityChipSelected: { borderColor: COLORS.green400, backgroundColor: COLORS.green1000 },
-  facilityText: { fontSize: 13, color: COLORS.muted, fontWeight: "500" },
-  facilityTextSelected: { color: COLORS.green400, fontWeight: "700" },
+  facilityText: { fontSize: 13, color: COLORS.muted, fontFamily: "MonaSans-Medium" },
+  facilityTextSelected: { color: COLORS.green400, fontFamily: "MonaSans-Bold" },
   
   textArea: { minHeight: 120, paddingTop: 16 },
   imageSection: { gap: 12 },
@@ -357,7 +353,7 @@ const styles = StyleSheet.create({
   addThumbCell: { borderStyle: "solid", borderColor: COLORS.gray100 },
   imageThumbnailsRow: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
   imageContainer: { width: "100%", height: "100%", position: "relative" },
-  imageUploadText: { fontSize: 13, fontWeight: "500", color: COLORS.muted },
+  imageUploadText: { fontSize: 13, fontFamily: "MonaSans-Medium", color: COLORS.muted },
   previewImage: { width: "100%", height: "100%", resizeMode: "cover" },
   removeButton: { position: "absolute", top: 8, right: 8, backgroundColor: "rgba(0,0,0,0.5)", padding: 6, borderRadius: 20 },
   buttonContainer: { marginTop: 14 },
@@ -365,8 +361,8 @@ const styles = StyleSheet.create({
   modalOverlay: { flex: 1, backgroundColor: "rgba(0, 0, 0, 0.5)", justifyContent: "center", alignItems: "center", paddingHorizontal: 24 },
   errorModalContent: { backgroundColor: COLORS.white, width: "100%", borderRadius: 24, padding: 24, alignItems: "center", elevation: 10 },
   errorIconCircle: { width: 64, height: 64, borderRadius: 32, backgroundColor: "#fee2e2", justifyContent: "center", alignItems: "center", marginBottom: 16 },
-  errorModalTitle: { fontSize: 18, fontWeight: "800", color: "#ef4444", marginBottom: 8, textAlign: "center" },
-  errorModalDesc: { fontSize: 14, color: COLORS.muted, textAlign: "center", marginBottom: 24, lineHeight: 22 },
+  errorModalTitle: { fontSize: 18, fontFamily: "MonaSans-Bold", color: "#ef4444", marginBottom: 8, textAlign: "center" },
+  errorModalDesc: { fontSize: 14, color: COLORS.muted, fontFamily: "MonaSans-Regular", textAlign: "center", marginBottom: 24, lineHeight: 22 },
   errorModalButton: { backgroundColor: "#ef4444", width: "100%", paddingVertical: 14, borderRadius: 14, alignItems: "center" },
-  errorModalButtonText: { color: COLORS.white, fontSize: 15, fontWeight: "700" }
+  errorModalButtonText: { color: COLORS.white, fontSize: 15, fontFamily: "MonaSans-Bold" }
 });

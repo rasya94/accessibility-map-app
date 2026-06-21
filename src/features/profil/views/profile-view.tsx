@@ -58,7 +58,7 @@ export function ProfileView() {
             marginBottom: 16,
           }}
         >
-          <Text style={{ fontSize: 24, fontWeight: "800", color: COLORS.text }}>
+          <Text style={{ fontSize: 24, fontFamily: "MonaSans-Bold", color: COLORS.text }}>
             Profil
           </Text>
           
@@ -101,10 +101,10 @@ export function ProfileView() {
           </View>
           
           <View style={{ alignItems: "center", gap: 4 }}>
-            <Text style={{ fontSize: 22, fontWeight: "800", color: COLORS.text }}>
+            <Text style={{ fontSize: 22, fontFamily: "MonaSans-Bold", color: COLORS.text }}>
               Albert Tesla
             </Text>
-            <Text style={{ fontSize: 13, color: COLORS.gray600, fontWeight: "500" }}>
+            <Text style={{ fontSize: 13, color: COLORS.gray600, fontFamily: "MonaSans-Medium" }}>
               user@email.com
             </Text>
           </View>
@@ -126,10 +126,10 @@ export function ProfileView() {
           }}
         >
           <View style={{ flex: 1, alignItems: "center", gap: 4 }}>
-            <Text style={{ fontSize: 13, color: COLORS.muted, fontWeight: "600" }}>
+            <Text style={{ fontSize: 13, color: COLORS.muted, fontFamily: "MonaSans-SemiBold" }}>
               Total Ulasan
             </Text>
-            <Text style={{ fontSize: 20, fontWeight: "800", color: COLORS.text }}>
+            <Text style={{ fontSize: 20, fontFamily: "MonaSans-Bold", color: COLORS.text }}>
               12
             </Text>
           </View>
@@ -137,10 +137,10 @@ export function ProfileView() {
           <View style={{ width: 1.5, backgroundColor: COLORS.gray100, marginVertical: 2 }} />
           
           <View style={{ flex: 1, alignItems: "center", gap: 4 }}>
-            <Text style={{ fontSize: 13, color: COLORS.muted, fontWeight: "600" }}>
+            <Text style={{ fontSize: 13, color: COLORS.muted, fontFamily: "MonaSans-SemiBold" }}>
               Reputasi
             </Text>
-            <Text style={{ fontSize: 20, fontWeight: "800", color: COLORS.green200 }}>
+            <Text style={{ fontSize: 20, fontFamily: "MonaSans-Bold", color: COLORS.green200 }}>
               240
             </Text>
           </View>
@@ -191,7 +191,7 @@ export function ProfileView() {
                   >
                     <Icon size={18} color={COLORS.text} />
                   </View>
-                  <Text style={{ fontSize: 15, fontWeight: "600", color: COLORS.text }}>
+                  <Text style={{ fontSize: 15, fontFamily: "MonaSans-SemiBold", color: COLORS.text }}>
                     {item.label}
                   </Text>
                 </View>
