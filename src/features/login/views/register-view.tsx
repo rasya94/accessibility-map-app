@@ -20,6 +20,14 @@ export function RegisterView({ onNavigateToLogin, onRegisterSuccess }: RegisterV
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
+  // Checks if all fields are filled out and terms are accepted
+  const isFormValid = 
+    fullName.trim() !== "" && 
+    email.trim() !== "" && 
+    password.length >= 6 && 
+    password === confirmPassword && 
+    agreeToTerms;
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -40,7 +48,10 @@ export function RegisterView({ onNavigateToLogin, onRegisterSuccess }: RegisterV
           Bantu wujudkan aksesibilitas{"\n"}yang lebih baik untuk semua.
         </Text>
 
-        <Text style={authStyles.sectionLabel}>Informasi Diri</Text>
+        {/* Added "Isi data diri" section description */}
+        <View style={{ marginTop: 8, marginBottom: 4 }}>
+          <Text style={authStyles.sectionLabel}>Informasi Dirimu</Text>
+        </View>
 
         {/* Registration Inputs */}
         <View style={[authStyles.formGroup, { marginBottom: 20 }]}>
@@ -62,7 +73,7 @@ export function RegisterView({ onNavigateToLogin, onRegisterSuccess }: RegisterV
           />
           <TextInput
             style={authStyles.inputCapsule}
-            placeholder="Password"
+            placeholder="Password (min. 6 karakter)"
             placeholderTextColor={COLORS.gray300}
             value={password}
             onChangeText={setPassword}
@@ -78,30 +89,38 @@ export function RegisterView({ onNavigateToLogin, onRegisterSuccess }: RegisterV
           />
         </View>
 
-        {/* Custom Checkbox */}
+        {/* Completed Checkbox Text */}
         <Pressable
           onPress={() => setAgreeToTerms(!agreeToTerms)}
-          style={authStyles.checkboxContainer}
+          style={[authStyles.checkboxContainer, { alignItems: 'flex-start', gap: 10 }]}
         >
-          {agreeToTerms ? (
-            <SquareCheck size={20} color={COLORS.text} fill={COLORS.white} />
-          ) : (
-            <Square size={20} color={COLORS.gray300} />
-          )}
-          <Text style={authStyles.checkboxLabel}>Saya Setuju dengan ...</Text>
+          <View style={{ marginTop: 2 }}>
+            {agreeToTerms ? (
+              <SquareCheck size={20} color={COLORS.green400 || COLORS.text} fill={COLORS.white} />
+            ) : (
+              <Square size={20} color={COLORS.gray300} />
+            )}
+          </View>
+          <Text style={[authStyles.checkboxLabel, { flex: 1, fontSize: 14, lineHeight: 20 }]}>
+            Saya menyetujui <Text style={{ fontFamily: "MonaSans-Medium", color: COLORS.green400 }}>Syarat & Ketentuan</Text> serta <Text style={{ fontFamily: "MonaSans-Medium", color: COLORS.green400 }}>Kebijakan Privasi</Text> yang berlaku.
+          </Text>
         </Pressable>
 
         {/* Footer Actions */}
         <View style={authStyles.actionGroup}>
           <AppButton
             label="Bergabung"
-            variant={agreeToTerms ? "primary" : "disabled"}
-            disabled={!agreeToTerms}
+            variant={isFormValid ? "primary" : "disabled"}
+            disabled={!isFormValid}
             onPress={onRegisterSuccess}
           />
-          <Pressable onPress={onNavigateToLogin} style={authStyles.linkButton}>
-            <Text style={authStyles.footerTextInline}>Sudah Punya Akun?</Text>
-          </Pressable>
+          
+          <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 12, gap: 4 }}>
+            <Text style={{ color: COLORS.gray500, fontFamily: "MonaSans-SemiBold" }}>Sudah punya akun?</Text>
+            <Pressable onPress={onNavigateToLogin} style={authStyles.linkButton}>
+              <Text style={{ color: COLORS.green400, fontFamily: "MonaSans-SemiBold" }}>Masuk</Text>
+            </Pressable>
+          </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

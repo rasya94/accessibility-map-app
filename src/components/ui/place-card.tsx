@@ -53,7 +53,7 @@ export function PlaceCard({ place }: Props) {
         {/* Details Wrapper */}
         <View style={{ gap: 6, paddingRight: 4 }}>
           {/* Title */}
-          <Text style={{ fontSize: 16, fontWeight: "700", color: COLORS.text }}>
+          <Text style={{ fontSize: 16, fontFamily: "MonaSans-SemiBold", color: COLORS.text }}>
             {place.name}
           </Text>
 
@@ -61,7 +61,7 @@ export function PlaceCard({ place }: Props) {
           <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
             <MapPin size={14} color={COLORS.gray600} />
             <Text
-              style={{ fontSize: 13, color: COLORS.gray500, flex: 1, fontWeight: "700" }}
+              style={{ fontSize: 13, color: COLORS.gray500, flex: 1, fontFamily: "MonaSans-Regular" }}
               numberOfLines={1}
             >
               {place.address}
@@ -76,7 +76,7 @@ export function PlaceCard({ place }: Props) {
             >
               {place.rating}
             </Text>
-            <Text style={{ fontSize: 13, color: COLORS.gray300, fontWeight: "700" }}>
+            <Text style={{ fontSize: 13, color: COLORS.gray300, fontFamily: "MonaSans-Regular" }}>
               ({place.reviews} ulasan)
             </Text>
           </View>

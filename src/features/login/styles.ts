@@ -26,7 +26,7 @@ export const authStyles = StyleSheet.create({
   // --- REGISTER VIEW STYLES ---
   registerTitle: {
     fontSize: 22,
-    fontWeight: "800",
+    fontFamily: "MonaSans-SemiBold",
     color: COLORS.text,
     lineHeight: 30,
     marginBottom: 32,
@@ -34,7 +34,7 @@ export const authStyles = StyleSheet.create({
   },
   sectionLabel: {
     fontSize: 15,
-    fontWeight: "700",
+    fontFamily: "MonaSans-SemiBold",
     color: COLORS.text,
     marginBottom: 16,
   },
@@ -48,7 +48,7 @@ export const authStyles = StyleSheet.create({
   checkboxLabel: {
     fontSize: 13,
     color: COLORS.muted,
-    fontWeight: "500",
+    fontFamily: "MonaSans-Medium",
   },
   // --- COMMON FORM STYLES ---
   formGroup: {
@@ -58,11 +58,11 @@ export const authStyles = StyleSheet.create({
   inputCapsule: {
     height: 54,
     backgroundColor: COLORS.gray100,
-    borderRadius: 16,
+    borderRadius: 24,
     paddingHorizontal: 20,
     fontSize: 14,
     color: COLORS.text,
-    fontWeight: "500",
+    fontFamily: "MonaSans-Medium",
   },
   actionGroup: {
     gap: 20,

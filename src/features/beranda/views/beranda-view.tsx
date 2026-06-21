@@ -383,7 +383,7 @@ const styles = StyleSheet.create({
   sheetHeaderArea: { paddingTop: 12, paddingHorizontal: 16, paddingBottom: 6, backgroundColor: COLORS.white, borderTopLeftRadius: 24, borderTopRightRadius: 24 },
   dragIndicator: { width: 42, height: 5, borderRadius: 3, backgroundColor: COLORS.gray200, alignSelf: "center", marginBottom: 12 },
   sheetHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 },
-  sheetTitle: { fontSize: 16, fontWeight: "800", color: COLORS.text },
-  sheetLink: { fontSize: 13, fontWeight: "700", color: COLORS.green400 },
+  sheetTitle: { fontSize: 16, fontFamily: "MonaSans-SemiBold", color: COLORS.text },
+  sheetLink: { fontSize: 13, fontFamily: "MonaSans-SemiBold", color: COLORS.green400 },
   listContainer: { paddingHorizontal: 16, gap: 10 }, // Menambahkan gap 10 persis seperti file asli Anda
 });
