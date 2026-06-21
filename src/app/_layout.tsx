@@ -29,8 +29,6 @@ export default function RootLayout() {
         <Stack.Screen name="place/[id]" />
         <Stack.Screen name="review/[id]" />
         <Stack.Screen name="survey/[id]" />
-        <Stack.Screen name="settings" />
-        <Stack.Screen name="help" />
       </Stack>
     </ThemeProvider>
   );

@@ -19,6 +19,7 @@ import {
   Star,
   ThumbsDown,
   ThumbsUp,
+  SquareParking
 } from "lucide-react-native";
 import { useMemo, useState } from "react";
 import { ImageBackground, Pressable, View } from "react-native";
@@ -76,6 +77,12 @@ const questions = [
       {
         label: "Kamar Mandi Difabel",
         icon: Bath,
+        color: COLORS.green400,
+        bg: COLORS.green1000,
+      },
+      {
+        label: "Parkiran Khusus",
+        icon: SquareParking,
         color: COLORS.green400,
         bg: COLORS.green1000,
       },
@@ -165,7 +172,10 @@ export function SurveyView({ place }: Props) {
 
   const handleModalConfirmation = () => {
     setShowSingleModal(false);
-    router.replace({ pathname: "/", params: { status: "submitted" } });
+    router.replace({ 
+      pathname: "/(tabs)", 
+      params: { status: "submitted" } 
+    });
   };
 
   return (

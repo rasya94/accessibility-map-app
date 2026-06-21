@@ -43,7 +43,7 @@ function ScoreRing({ score }: { score: number }) {
     <View
       style={{
         backgroundColor: color,
-        borderRadius: 24,
+        borderRadius: 32,
         paddingVertical: 22,
         paddingHorizontal: 18,
         alignItems: "center",
@@ -54,7 +54,7 @@ function ScoreRing({ score }: { score: number }) {
           color: COLORS.white,
           fontSize: 14,
           opacity: 0.9,
-          fontWeight: "600",
+          fontFamily: "MonaSans-Medium",
           letterSpacing: 0.3,
         }}
       >
@@ -64,7 +64,7 @@ function ScoreRing({ score }: { score: number }) {
         style={{
           color: COLORS.white,
           fontSize: 46,
-          fontWeight: "900",
+          fontFamily: "MonaSans-Bold",
           lineHeight: 54,
           marginVertical: 4,
         }}
@@ -76,7 +76,7 @@ function ScoreRing({ score }: { score: number }) {
           color: COLORS.white,
           opacity: 0.75,
           fontSize: 14,
-          fontWeight: "500",
+          fontFamily: "MonaSans-Medium",
         }}
       >
         /100
@@ -137,7 +137,7 @@ export function PlaceDetailView({ place }: Props) {
               style={{
                 width: 46,
                 height: 46,
-                borderRadius: 14,
+                borderRadius: 32,
                 backgroundColor: COLORS.white,
                 alignItems: "center",
                 justifyContent: "center",
@@ -155,7 +155,7 @@ export function PlaceDetailView({ place }: Props) {
                 alignItems: "center",
                 gap: 8,
                 backgroundColor: COLORS.white,
-                borderRadius: 14,
+                borderRadius: 32,
                 paddingHorizontal: 16,
                 height: 46,
               }}
@@ -172,9 +172,10 @@ export function PlaceDetailView({ place }: Props) {
         <View
           style={{
             marginTop: -48, // Adjusted to overlap cleaner with the full bleed image background
+            paddingBottom: 36,
             backgroundColor: COLORS.white,
-            borderRadius: 24,
-            paddingVertical: 22,
+            borderRadius: 32,
+            paddingVertical: 28,
             paddingHorizontal: 20,
             shadowColor: COLORS.shadow,
             shadowOpacity: 0.1,
@@ -213,7 +214,7 @@ export function PlaceDetailView({ place }: Props) {
               >
                 {place.rating}
               </Text>
-              <Text style={{ color: COLORS.muted, fontSize: 14 }}>
+              <Text style={{ color: COLORS.gray300, fontSize: 14, fontFamily: "MonaSans-Medium" }}>
                 ({place.reviews})
               </Text>
             </View>
@@ -230,7 +231,7 @@ export function PlaceDetailView({ place }: Props) {
             >
               <MapPin size={15} color={COLORS.muted} />
               <Text
-                style={{ color: COLORS.muted, fontSize: 14 }}
+                style={{ color: COLORS.gray600, fontSize: 14, fontFamily: "MonaSans-Medium" }}
                 numberOfLines={1}
               >
                 {place.address}
@@ -296,7 +297,7 @@ export function PlaceDetailView({ place }: Props) {
                     style={{
                       flex: 1,
                       color: enabled ? COLORS.text : COLORS.muted,
-                      fontWeight: "600",
+                      fontFamily: "MonaSans-Medium",
                       fontSize: 15,
                     }}
                   >
@@ -307,7 +308,7 @@ export function PlaceDetailView({ place }: Props) {
                       style={{
                         fontSize: 13,
                         color: COLORS.muted,
-                        fontWeight: "600",
+                        fontFamily: "MonaSans-Medium",
                       }}
                     >
                       Tidak tersedia

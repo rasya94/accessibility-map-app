@@ -46,10 +46,10 @@ export function ContributeView() {
     >
       {/* Header */}
       <View style={{ paddingHorizontal: 16 }}>
-        <Text style={{ fontSize: 22, fontWeight: "800", color: COLORS.text }}>
+        <Text style={{ fontFamily: "MonaSans-Bold", fontSize: 22, fontWeight: "800", color: COLORS.text }}>
           Kontribusi
         </Text>
-        <Text style={{ fontSize: 14, color: COLORS.muted, marginTop: 4 }}>
+        <Text style={{ fontFamily: "MonaSans-Regular", fontSize: 14, color: COLORS.muted, marginTop: 4 }}>
           Bantu sesama dengan memperbarui data aksesibilitas.
         </Text>
       </View>
@@ -89,8 +89,8 @@ export function ContributeView() {
               onPress={() => item.route && router.push(item.route as any)}
               style={({ pressed }) => ({
                 backgroundColor: COLORS.white,
-                borderRadius: 20,
-                padding: 18,
+                borderRadius: 28,
+                padding: 22,
                 flexDirection: "row",
                 alignItems: "center",
                 gap: 14,
@@ -104,28 +104,28 @@ export function ContributeView() {
             >
               <View
                 style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 14,
+                  width: 64,
+                  height: 64,
+                  borderRadius: 20,
                   backgroundColor: item.bg,
                   alignItems: "center",
                   justifyContent: "center",
                 }}
               >
-                <Icon size={22} color={item.color} />
+                <Icon size={32} color={item.color} />
               </View>
               <View style={{ flex: 1 }}>
                 <Text
                   style={{
                     fontSize: 15,
-                    fontWeight: "700",
+                    fontFamily: "MonaSans-SemiBold",
                     color: COLORS.text,
                   }}
                 >
                   {item.title}
                 </Text>
                 <Text
-                  style={{ fontSize: 13, color: COLORS.muted, marginTop: 2 }}
+                  style={{ fontFamily: "MonaSans-Regular", fontSize: 13, color: COLORS.muted, marginTop: 2 }}
                 >
                   {item.desc}
                 </Text>
@@ -141,7 +141,7 @@ export function ContributeView() {
         <Text
           style={{
             fontSize: 15,
-            fontWeight: "700",
+            fontFamily: "MonaSans-Bold",
             color: COLORS.text,
             marginBottom: 10,
           }}
@@ -186,21 +186,21 @@ export function ContributeView() {
                 <Text
                   style={{
                     fontSize: 14,
-                    fontWeight: "600",
+                    fontFamily: "MonaSans-Medium",
                     color: COLORS.text,
                   }}
                 >
                   {c.name}
                 </Text>
-                <Text style={{ fontSize: 12, color: COLORS.muted }}>
+                <Text style={{ fontFamily: "MonaSans-Regular", fontSize: 12, color: COLORS.muted }}>
                   {c.type}
                 </Text>
               </View>
               <View
                 style={{ flexDirection: "row", alignItems: "center", gap: 4 }}
               >
-                <Clock size={11} color={COLORS.muted} />
-                <Text style={{ fontSize: 11, color: COLORS.muted }}>
+                <Clock size={11} color={COLORS.muted} style={{ marginRight: 4 }}/>
+                <Text style={{ fontFamily: "MonaSans-Regular", fontSize: 12, color: COLORS.muted }}>
                   {c.time}
                 </Text>
               </View>
